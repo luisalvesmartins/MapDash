@@ -1,0 +1,7 @@
+[
+    {"area":"78","data":{"current":{"critical":23}},"total":{"critical":200},"date":"2020-04-20"},
+    {"area":"78","data":{"current":{"critical":25}},"total":{"critical":225},"date":"2020-04-21"},
+    {"area":"78","data":{"current":{"critical":21}},"total":{"critical":240},"date":"2020-04-22"},
+    {"area":"78","data":{"current":{"critical":19}},"total":{"critical":230},"date":"2020-04-23"},
+    {"area":"78","data":{"current":{"critical":5}},"total":{"critical":205},"date":"2020-04-24"}
+]

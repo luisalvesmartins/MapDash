@@ -1,0 +1,14 @@
+{
+    "menu.intro": "MapDash<br>Make your data live",
+    "simulate.choose": "Choose Simulation to execute",
+    "simulate.filter": "Filter data:",
+    "search.title": "Search",
+    "search.departments": "Search Departments:",
+    "layers.title": "Choose Layers to display",
+    "data.title": "Choose Data to display",
+    "data.select": "Select date:",
+    "data.filter": "Filter data:",
+    "charts.title": "Charts",
+    "charts.select": "Select Graph:",
+    "info.title": "Select a department in the map"
+}

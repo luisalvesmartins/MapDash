@@ -1,0 +1,191 @@
+BODY {
+    height:100%;
+    margin:0;
+}
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+.iconify { 
+    width: 30px; 
+    height: 30px; 
+    cursor: pointer;
+    margin-top:5px;
+}
+/* DATA SOURCE */
+.sourcepick { 
+    margin:2px;
+    cursor: pointer;
+    padding:2px;
+    color:white;
+    height:70px;
+    width:118px;
+    float:left;
+}
+.sourcepick DIV:first-child { 
+    cursor: pointer;
+    padding:2px;
+    font-size:12px;
+    font-weight: bold;
+    color:white;
+}
+.sourcepick DIV:last-child { 
+    cursor: pointer;
+    font-size:10px;
+    font-weight:normal;
+    padding:2px;
+    color:black;
+    background-color: white;
+    height:43px;
+}
+
+/* INFO */
+.InfoCard {
+    margin:2px;
+    padding:2px;
+    color:white;
+    height:37px;
+    width:85px;
+    float:left;
+    font-weight: bold;
+    font-size:10px;
+}
+.InfoCard>DIV {
+    text-align: center;
+    font-size:14px;
+    font-weight:normal;
+    padding:2px;
+    color:black;
+    background-color: white;
+    height:19px;
+}
+.InfoCardTitle{
+    font-weight: bold;
+    font-size:14px;
+    color: darkblue;
+    clear:both;
+}
+
+/* GRAPHS */
+#divGraphSelectionContainer{
+    width:100%;
+    overflow-x: auto;
+    height:90px;
+}
+#divGraphSelection{
+    display:grid;
+    grid-template-columns: 1fr;
+    grid-auto-flow: column;
+}
+.InfoGraph{
+    margin:2px;
+    padding:2px;
+    height:65px;
+    width:150px;
+    background-color: darkblue;
+    cursor: pointer;
+}
+.InfoGraph div:first-child{
+    margin:2px;
+    padding:2px;
+    color:white;
+    font-weight: bold;
+    font-size:10px;
+}
+.InfoGraph div:last-child{
+    margin:2px;
+    padding:2px;
+    color:black;
+    font-weight: bold;
+    font-size:8px;
+    background-color: white;
+    height:36px;
+}
+/* SEARCH */
+#divSearchResults DIV{
+    cursor:pointer;
+}
+#divSearchResults DIV:hover{
+    font-weight: bold;
+}
+
+.spaceBelow{
+    margin-bottom:10px;
+}
+
+/* SIM */
+.simpick { 
+    margin:2px;
+    cursor: pointer;
+    padding:2px;
+    color:white;
+    height:70px;
+    width:118px;
+    float:left;
+}
+.simpick DIV:first-child { 
+    cursor: pointer;
+    padding:2px;
+    font-size:12px;
+    font-weight: bold;
+    color:white;
+}
+.simpick DIV:last-child { 
+    cursor: pointer;
+    font-size:10px;
+    font-weight:normal;
+    padding:2px;
+    color:black;
+    background-color: white;
+    height:43px;
+}
+
+/*INFOGRID*/
+.infogridH{
+    font-weight:bold;
+    background-color:darkblue;
+    color:white;
+    margin-right:1px;
+    padding:1px;
+}
+.infogrid{
+    color:black;
+    margin-right:1px;
+    padding:1px;
+    border-bottom:1px solid lightgrey;
+}
+
+.leaflet-div-icon {
+    background: transparent;
+    border: none;
+}
+.leaflet-marker-icon .number{
+    position: relative;
+    top: -37px;
+    font-size: 12px;
+    width: 25px;
+    text-align: center;
+}        
+
+#divSimFields{
+    clear: both;    
+}

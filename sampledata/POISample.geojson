@@ -1,0 +1,14 @@
+{
+    "type": "FeatureCollection",
+    "name": "POIOSample",
+    "features": [{
+        "type": "Feature",
+        "properties": {
+            "name": "Sample point"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [1.6793431, 48.9981787]
+        }
+    }]
+}

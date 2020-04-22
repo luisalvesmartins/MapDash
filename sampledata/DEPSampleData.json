@@ -1,0 +1,10 @@
+[
+    {"area":"78","data":{"current":{"critical":23}},"total":{"critical":200},"date":"2020-04-21"},
+    {"area":"95","data":{"current":{"critical":30}},"total":{"critical":200},"date":"2020-04-21"},
+    {"area":"77","data":{"current":{"critical":65}},"total":{"critical":320},"date":"2020-04-21"},
+    {"area":"91","data":{"current":{"critical":28}},"total":{"critical":451},"date":"2020-04-21"},
+    {"area":"94","data":{"current":{"critical":43}},"total":{"critical":190},"date":"2020-04-21"},
+    {"area":"92","data":{"current":{"critical":33}},"total":{"critical":230},"date":"2020-04-21"},
+    {"area":"93","data":{"current":{"critical":10}},"total":{"critical":305},"date":"2020-04-21"},
+    {"area":"75","data":{"current":{"critical":5}},"total":{"critical":120},"date":"2020-04-21"}
+]

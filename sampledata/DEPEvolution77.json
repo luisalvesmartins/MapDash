@@ -1,0 +1,6 @@
+[
+    {"area":"77","data":{"current":{"critical":28}},"total":{"critical":125},"date":"2020-04-21"},
+    {"area":"77","data":{"current":{"critical":24}},"total":{"critical":140},"date":"2020-04-22"},
+    {"area":"77","data":{"current":{"critical":12}},"total":{"critical":100},"date":"2020-04-23"},
+    {"area":"77","data":{"current":{"critical":15}},"total":{"critical":115},"date":"2020-04-24"}
+]
