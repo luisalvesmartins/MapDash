@@ -3,7 +3,11 @@ A Map Dashboard for your data
 
 (Under development)
 
-### EXTERNAL LIBRARIES USED
+### SEE IT LIVE
+
+Here: https://mapdash.blob.core.windows.net/mapdash/index.html 
+
+### EXTERNAL LIBRARIES
 - Leaflet
 - Leaflet Sidebar
 - Leaflet MigrationLayer
@@ -11,7 +15,9 @@ A Map Dashboard for your data
 - Plotly
 - Iconify
 
-TODO:
-- Github Actions to deploy to Azure Storage
+### Contributors
+
+## TODO:
 - Documentation
 - Language Selection dropdown
+- Translation Files
