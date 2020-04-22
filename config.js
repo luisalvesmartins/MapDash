@@ -39,7 +39,7 @@ var GraphsDescription=[
         type:"line",
         needSelectedArea:true,
         data:{
-            url:"sampleData/DEPEvolution#AREA#.json",
+            url:"sampledata/DEPEvolution#AREA#.json",
             x:"date",
             y:["data.current.critical","total.critical"],
             titleX:"",
