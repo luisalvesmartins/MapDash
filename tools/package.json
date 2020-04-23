@@ -2,7 +2,7 @@
   "name": "cosmosdbgeo",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "import geojson.js",
   "scripts": {},
   "author": "Luis Alves Martins",
   "license": "MIT",
