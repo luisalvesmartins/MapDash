@@ -92,6 +92,12 @@ dataSources:[
 ]
 ```
 
+URLs accept the following pragmas:
+- #YYYY# - year
+- #MM# - month
+- #DD# - day
+- #AREA# - selected map area
+
 ### Charts 
 
 Definition of charts to be displayed:
