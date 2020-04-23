@@ -10,6 +10,9 @@ Available [here](https://mapdash.blob.core.windows.net/mapdash/index.html) with 
 
 ## Customization
 
+### TOOLS
+
+- [Import GeoJSON](tools/README.MD)
 
 ### EXTERNAL LIBRARIES
 - [Leaflet](https://leafletjs.com/)

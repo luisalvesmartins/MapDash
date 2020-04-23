@@ -1,0 +1,13 @@
+{
+  "name": "cosmosdbgeo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Luis Alves Martins",
+  "license": "MIT",
+  "dependencies": {
+    "@azure/cosmos": "^3.6.3",
+    "express": "^4.17.1"
+  }
+}
