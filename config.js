@@ -49,13 +49,13 @@ var GraphsDescription=[
     {
         id:"comparison",
         title:"Comparison",
-        description:"Graph with comparison between men and women deaths",
+        description:"Graph with comparison between Men and Women",
         type:"bar",
         needSelectedArea:true,
         data:{
-            url:"https://covid-ia-appdata.azurewebsites.net/api/v2/get/until?yyyy=#YYYY#&mm=#MM#&dd=#DD#&area=#AREA#",
+            url:"sampledata/DEPComp#AREA#.json",
             x:"date",
-            y:["data.men.total.deaths","data.women.total.deaths"],
+            y:["men","women"],
             titleX:"",
             titleSeries:["Men","Women"],
         }
@@ -208,8 +208,8 @@ var GeoLayers=[
 var MAPSOURCE={
     title:"France",
     file:"maps/departments.geojson",
-    center:[46.705, 1.5],
-    zoom:6,
+    center:[48.705, 2.5],
+    zoom:9,
     codIndex:"code"
 }
 

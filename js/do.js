@@ -13,7 +13,7 @@ var selectedArea=null;
 
 var mapLayers=[
     {id:"polygons",title:"Polygons",display:true},
-    {id:"labels",title:"Map Values",display:true}
+    {id:"labels",title:"Map Values",display:false}
 ];
 
 var layersPane=null;
@@ -359,8 +359,12 @@ var Do={
         var textToFilter=document.getElementById("divDataSearch").value.toUpperCase();
         var s="";
         for(let i=0;i<dataSources.length;i++){
-            if (dataSources[i].title.toUpperCase().indexOf(textToFilter)>=0 || textToFilter=="")
-                s+=Card(dataSources[i].title, dataSources[i].description, "sourcepick", dataSources[i].color, "Do.selMap(" + i + ")");
+            if (dataSources[i].title.toUpperCase().indexOf(textToFilter)>=0 || textToFilter==""){
+                var selClass="";
+                if (i==actualDataSource)
+                    selClass=" sel"
+                s+=Card(dataSources[i].title, dataSources[i].description, "sourcepick"+selClass, dataSources[i].color, "Do.selMap(" + i + ")");
+                }
         }
         document.getElementById("divDataInner").innerHTML=s;
     },
@@ -386,10 +390,11 @@ var Do={
                 graphs.forEach(graph=>{
                     var G=GraphsDescription.find(g=>g.id==graph);
     
-                    gHTML+=`<div class=InfoGraph onclick='Do.GraphDraw("${G.id}")'>
-                        <div>${G.title}</div>
-                        <div>${G.description}</div>
-                        </div>`
+                    var selClass="";
+                    if (G.id==actualChart)
+                        selClass=" sel"
+                    gHTML+=Card(G.title, G.description, "InfoGraph"+selClass, G.darkblue, "Do.GraphDraw('" + G.id + "')");
+  
                 })
                 await this.GraphDraw(graphs[0]);
             }

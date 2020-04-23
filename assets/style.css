@@ -57,7 +57,12 @@ BODY {
     background-color: white;
     height:43px;
 }
-
+.sourcepick:hover{
+    box-shadow: 2px 2px 5px 0px red;
+}
+.sel {
+    box-shadow: 2px 2px 5px 0px rgba(130,130,130,1);
+}
 /* INFO */
 .InfoCard {
     margin:2px;
@@ -120,6 +125,11 @@ BODY {
     background-color: white;
     height:36px;
 }
+.InfoGraph:hover{
+    box-shadow: 2px 2px 5px 0px red;
+}
+
+
 /* SEARCH */
 #divSearchResults DIV{
     cursor:pointer;

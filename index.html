@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MAPDASH</title>
+    <link rel="shortcut icon" href="assets/favicon.ico"> 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
     <link rel="stylesheet" href="assets/style.css"/>
     <link rel="stylesheet" href="plugins/leaflet-sidebar-v2.min.css"/>
@@ -38,7 +39,14 @@
 
         <div class="leaflet-sidebar-content">
             <div class="leaflet-sidebar-pane" id="intro">
-                <span data-localize="menu.intro">Intro</span>
+                <span data-localize="menu.intro"><h1>MapDash</h1>With MapDash you can browse any datasource available in JSON that has a georeference connection.
+
+                    <br><br>Data can be visualized in a map layer, mapflow(movement from one geo area to other), charts, tables or infocards.
+                    
+                    <br><br>Geographic data needs to be in available in the geojson format.
+                    
+                    <br><br>MapDash is an accelerator that only requires a configuration of the features to be displayed. No dev skills are necessary unless you want to extend the solution. And if you extend it, please contribute to the source code.
+                    </span>
             </div>
 
             <div class="leaflet-sidebar-pane" id="simulate">
