@@ -2,6 +2,8 @@
 A Map Dashboard for your data
 (Under development)
 
+![MapDash](docs/mapdash1.png)
+
 With MapDash you can browse any datasource available in JSON that has a georeference connection.
 
 Data can be visualized in a map layer, mapflow(movement from one geo area to other), charts, tables or infocards.
@@ -9,6 +11,8 @@ Data can be visualized in a map layer, mapflow(movement from one geo area to oth
 Geographic data needs to be in available in the geojson format.
 
 MapDash is an accelerator that only requires a configuration of the features to be displayed. No dev skills are necessary unless you want to extend the solution. And if you extend it, please contribute to the source code.
+
+![MapDash](docs/mapdash2.png)
 
 You can see it live with sample data [here](https://mapdash.blob.core.windows.net/mapdash/index.html)
 
@@ -60,6 +64,8 @@ Data Sources represent the data that can be explored in the map. They are define
 - infoformat - what is the infoformat id used to display more details (see Information section below)
 - graphs[] - list of the id of graphs available for this data source (see Charts section)
 
+![DataSources](docs/datasource.png)
+
 ```javascript
 var dataSources=[
     {
@@ -96,6 +102,8 @@ Definition of charts to be displayed:
   - titleX - title for the X axis
   - titleSeries[] - title for each of the series
 
+![Charts](docs/charts.png)
+
 ```javascript
 var GraphsDescription=[
     {
@@ -120,6 +128,8 @@ When a user selects a geographic region the information is displayed according t
 The information to be presented can be:
 Section titles, Infocards, Tables, Mapflow
 
+![infocard](docs/infocard.png)
+
 Section titles
 
 Are just text presented to limit other elements:
@@ -136,6 +146,7 @@ Are just text presented to limit other elements:
 Infocards
 
 Represent a box with a title, information associated and a backgroundcolor:
+
 ```javascript
             {
                 title:"Current Critical",
@@ -147,6 +158,8 @@ Represent a box with a title, information associated and a backgroundcolor:
 Tables:
 
 Defined by titles, fields and width for each column:
+
+![DataSources](docs/tables.png)
 
 ```javascript
             {
@@ -160,6 +173,8 @@ Defined by titles, fields and width for each column:
 Mapflow:
 
 Represent the movement of assets between georegions over the map. Defined by the destination and value to be represented:
+
+![Mapflow](docs/mapdash2.png)
 
 ```javascript
             {
@@ -205,6 +220,9 @@ var InfoFormats=[
 
 A Point of Interest is represented by the data geojson source. The POI can be initially visible or hidden:
 
+![POI](docs/layers.png)
+
+
 ```javacscript
     {
         id:"POISample",
@@ -234,7 +252,8 @@ A Point of Interest is represented by the data geojson source. The POI can be in
 
 ### Contributors
 
+-
+
 ## TODO:
-- Documentation
 - Language Selection dropdown
 - Translation Files
