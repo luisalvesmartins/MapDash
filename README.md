@@ -10,7 +10,7 @@ Data can be visualized in a map layer, mapflow(movement from one geo area to oth
 
 Geographic data needs to be in available in the geojson format.
 
-MapDash is an accelerator that only requires a configuration of the features to be displayed. No dev skills are necessary unless you want to extend the solution. And if you extend it, please contribute to the source code.
+MapDash is an accelerator that only requires a JSON configuration file of the features to be displayed. No dev skills are necessary unless you want to extend the solution. And if you extend it, please contribute to the source code.
 
 ![MapDash](docs/mapdash2.png)
 
@@ -18,7 +18,7 @@ You can see it live with sample data [here](https://mapdash.blob.core.windows.ne
 
 ## Features
 
-- All the functionality is configured in the config.js file 
+- All the functionality is configured in the sampleData/config.json file 
 - You can configure:
   - MapSource - Geomap, origin and initial zoom level
   - Data Sources - what data to display - URL and data fields
@@ -29,8 +29,6 @@ You can see it live with sample data [here](https://mapdash.blob.core.windows.ne
 
 ## Customization
 
-The customization is done by changing the config file "config.js"
-
 ### MapSource 
 
 The MapSource is defined by:
@@ -39,15 +37,22 @@ The MapSource is defined by:
 - center of the map
 - initial zoom level
 - field name that references the spatial data
+- languages{} - list of languages available for translation
+- translationPath - path to the translation files
 
 Sample, using France public geojson data copied locally with all the Departments where each department is identified by the field "code" :
 ```javascript
-var MAPSOURCE={
+map:{
     title:"France",
     file:"maps/departments.geojson",
     center:[48.705, 2.5],
     zoom:9,
-    codIndex:"code"
+    codIndex:"code",
+    languages:{
+            "English":"en",
+            "Français":"fr"
+        },
+    translationPath:"assets/translation"
 }
 ```
 
@@ -67,7 +72,7 @@ Data Sources represent the data that can be explored in the map. They are define
 ![DataSources](docs/datasource.png)
 
 ```javascript
-var dataSources=[
+dataSources:[
     {
         url:"sampledata/DEPSampleData.json",
         intervals:{
@@ -105,7 +110,7 @@ Definition of charts to be displayed:
 ![Charts](docs/charts.png)
 
 ```javascript
-var GraphsDescription=[
+charts:[
     {
         id:"evolution",
         title:"Evolution",
@@ -187,7 +192,7 @@ Represent the movement of assets between georegions over the map. Defined by the
 A full example can be:
 
 ```javascript
-var InfoFormats=[
+info:[
 {
         id:"movement",
         format:[
@@ -224,7 +229,7 @@ A Point of Interest is represented by the data geojson source. The POI can be in
 
 
 ```javacscript
-    {
+POILayers:{
         id:"POISample",
         title:"POI Sample",
         url:"sampledata/POISample.geojson",
