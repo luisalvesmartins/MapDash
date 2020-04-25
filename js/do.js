@@ -181,7 +181,6 @@ var Do={
         }).addTo(mymap);
     
         dataDEP=[];
-        console.log("got " + ar.length)
         for (let i = 0; i < ar.length; i++) {
             const a = ar[i];
            
@@ -278,6 +277,11 @@ var Do={
                         sHTML+=sT + "</div>"
                         break;
                     case "mapflow":
+                        if (selectedArea==area)
+                            if (flowPane!=null){
+                                flowPane.pause();
+                                break;
+                            }
                         var dataFlow=[];
                         for(let f in geojsonDEP._layers)
                         {
@@ -649,31 +653,31 @@ var Do={
     //#region MAPFLOW
     mapFlow:function(data){
     },
-    _mapFlowCore(data){
-        if (flowPane)
-            flowPane.destroy();
-        flowPane = new L.migrationLayer({
-            pane:"ARROWS",
-            map: mymap,
-            data: data,
-                pulseRadius:15,
-                pulseBorderWidth:3,
-                arcWidth:1,
-                arcLabel:false,
-                // arcLabelFont:'10px sans-serif',
-                maxWidth:10,
-        })
-        flowPane.addTo(mymap);
-        //migrationLayer.setData(newData);
+    _mapFlowCore:function(data){
+        if (flowPane){
+            flowPane.hide();
+            flowPane.setData(data);
+            flowPane.show();
+        }
+        else
+        {
+            flowPane = new L.migrationLayer({
+                pane:"ARROWS",
+                map: mymap,
+                data: data,
+                    pulseRadius:15,
+                    pulseBorderWidth:3,
+                    arcWidth:1,
+                    arcLabel:false,
+                    // arcLabelFont:'10px sans-serif',
+                    maxWidth:10,
+            })
+            flowPane.addTo(mymap);
+        }
 
-        //4.hide migrationLayer
-        //migrationLayer.hide();
-        //5.show migrationLayer
-        flowPane.show();
-        //6.pause migrationLayer animation
-        flowPane.pause();
-        //7.play migrationLayer animation
-        //migrationLayer.play();
+        flowPane.play();
+        //flowPane.pause();
+        //flowPane.play();
     },
     //#endregion
 }

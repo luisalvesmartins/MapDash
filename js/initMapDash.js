@@ -152,4 +152,10 @@ async function initMapDash(configFile){
             }
         });
     })
+
+    // Resize map with resize of screen
+    window.addEventListener('resize', function(event) {
+        document.getElementById("mapid").style.height=window.innerHeight + "px";
+        document.getElementById("mapid").style.width=window.innerWidth + "px";
+    });
 }

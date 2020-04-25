@@ -18,7 +18,6 @@ var interact={
                 //mymap.fitBounds(e.target.getBounds());
                 var layer = e.target;
                 if (e.target){
-                    selectedArea=e.target.feature.properties.id;
                     layer.setStyle({
                         weight: 2,
                         color: 'red',
@@ -27,6 +26,7 @@ var interact={
                     });
                     //sidebar.open('info')
                     Do.Info(e);
+                    selectedArea=e.target.feature.properties.id;
                     if (actualChart!=null){
                         await Do.GraphDraw(actualChart);
                     }
