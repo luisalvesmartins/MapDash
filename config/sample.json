@@ -131,7 +131,12 @@
             "color":"darkblue",
             "fields":[
                 {
-                    "id":"Date",
+                    "id":"date1",
+                    "title":"Date",
+                    "type":"date"
+                },
+                {
+                    "id":"date2",
                     "title":"Date",
                     "type":"date"
                 },
@@ -143,10 +148,14 @@
                 {
                     "id":"listone",
                     "title":"This is a list",
-                    "type":"list(1,2,3)"
+                    "type":"list",
+                    "data":{
+                        "a":"A",
+                        "b":"B"
+                    }
                 }
             ],
-            "url":"",
+            "url":"a.html?date=#date1#&date2=#date2#",
             "results":[
                 { 
                     "type":"chart",

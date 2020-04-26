@@ -536,18 +536,27 @@ var Do={
 
         //Sim.fields: title, id, type
         //type: text, number, list({"key":"value","key":"value"...}), mandatory
+        sHTML=Forms.create(sim);
 
-        var sHTML="";
-        sim.fields.forEach(f => {
-            sHTML+="<div>" + f.title + "</div>";
-            sHTML+="<div><input id='" + f.id + "'></div>";
-        });
-        sHTML+="<div><button onclick='Do.SimRun(" + n + ")'>Run</button></div>";
+        sHTML+="<div style='margin:5px'><button onclick='Do.SimRun(" + n + ")'>Run</button></div>";
+
         document.getElementById("divSimFields").innerHTML=sHTML;
+        Forms.afterRender(sim);
     },
     SimRun(n){
         var sim=Simulations[n];
-        //CALL URL, DO URL replacement
+
+        var fieldList=Forms.getFields(sim);
+
+        console.log(fieldList)
+        var url=sim.url;
+        fieldList.forEach(f=>{
+            url=url.replace("#" + f.field + "#",f.value);
+        });
+        //DO URL replacement
+        console.log(sim.url)
+        console.log(url)
+        //CALL URL
 
         //SHOW RESULTS
         var sHTML="";
