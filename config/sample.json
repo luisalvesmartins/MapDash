@@ -62,15 +62,15 @@
                     "type":"section"
                 },
                 {
+                    "type":"mapflow",
+                    "fieldTo":"to",
+                    "fieldValue":"people"
+                },
+                {
                     "type":"table",
                     "fields":["to","people"],
                     "titles":["To Dep","# of people"],
                     "width":["50px","auto"]
-                },
-                {
-                    "type":"mapflow",
-                    "fieldTo":"to",
-                    "fieldValue":"people"
                 }
             ]
         },

@@ -50,7 +50,10 @@
             </div>
 
             <div class="leaflet-sidebar-pane" id="simulate">
-                <h1 class="leaflet-sidebar-header"><span data-localize="simulate.choose">Choose Simulation</span><div class="leaflet-sidebar-close">X</div></h1>
+                <h1 class="leaflet-sidebar-header"><span data-localize="simulate.choose">Choose Simulation</span>
+                    <div class="leaflet-sidebar-resize" onclick="interact.sidebarResize(this)"><span class="iconify" data-icon="mdi:swap-horizontal" data-inline="false"></span></div>
+                    <div class="leaflet-sidebar-close">X</div>
+                </h1>
                 <div style="margin: 10px 2px 10px 2px;">
                     <span data-localize="simulate.filter">Filter data:</span>
                     <input type="text" id="divSimSearch" style="width:100%" onkeyup="Do.SimShow()">
@@ -77,7 +80,10 @@
             </div>
 
             <div class="leaflet-sidebar-pane" id="data">
-                <h1 class="leaflet-sidebar-header"><span data-localize="data.title">Choose Data to display</span><div class="leaflet-sidebar-close">X</div></h1>
+                <h1 class="leaflet-sidebar-header"><span data-localize="data.title">Choose Data to display</span>
+                    <div class="leaflet-sidebar-resize" onclick="interact.sidebarResize(this)"><span class="iconify" data-icon="mdi:swap-horizontal" data-inline="false"></span></div>
+                    <div class="leaflet-sidebar-close">X</div>
+                </h1>
                 <div style="margin: 10px 2px 10px 2px;">
                     <span data-localize="data.select">Select date:</span>
                     <input type="text" id="txtDate" style="width:100%" value="2020-04-17">
@@ -90,18 +96,22 @@
             </div>
 
             <div class="leaflet-sidebar-pane" id="graphs">
-                <h1 class="leaflet-sidebar-header" id="chartInfoTitle"><span data-localize="charts.title">Charts</span><div class="leaflet-sidebar-close">X</div></h1>
+                <h1 class="leaflet-sidebar-header"><span id="chartInfoTitle" data-localize="charts.title">Charts</span>
+                    <div class="leaflet-sidebar-resize" onclick="interact.sidebarResize(this)"><span class="iconify" data-icon="mdi:swap-horizontal" data-inline="false"></span></div>
+                    <div class="leaflet-sidebar-close">X</div>
+                </h1>
                 <div style="margin: 10px 2px 10px 2px;" id="divSelectGraph">
                     <span data-localize="charts.select">Select Graph:</span>
                 </div>
-                <div id="divGraphSelectionContainer">
-                    <div id="divGraphSelection"></div>
-                </div>
+                <div id="divGraphSelection"></div>
                 <div id="divGraph"></div>
             </div>
 
             <div class="leaflet-sidebar-pane" id="info">
-                <h1 class="leaflet-sidebar-header" id="infoTitle"><span data-localize="info.title">Info</span><div class="leaflet-sidebar-close">X</div></h1>
+                <h1 class="leaflet-sidebar-header"><span id="infoTitle" data-localize="info.title">Info</span>
+                    <div class="leaflet-sidebar-resize" onclick="interact.sidebarResize(this)"><span class="iconify" data-icon="mdi:swap-horizontal" data-inline="false"></span></div>
+                    <div class="leaflet-sidebar-close">X</div>
+                </h1>
                 <div id="divInfo" data-localize="info.title">Select a department in the map</div>
             </div>
         </div>

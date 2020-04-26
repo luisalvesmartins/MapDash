@@ -27,8 +27,8 @@ var interact={
                     //sidebar.open('info')
                     Do.Info(e);
                     selectedArea=e.target.feature.properties.id;
-                    if (actualChart!=null){
-                        await Do.GraphDraw(actualChart);
+                    if (selectedChart!=null){
+                        await Do.GraphDraw(selectedChart);
                     }
                 }            
             }
@@ -44,4 +44,16 @@ var interact={
             fillOpacity: 0.7
         };
     },
+    sidebarResize:function(t){
+        if (document.getElementById('sidebar').style.width=='98%'){
+            document.getElementById('sidebar').style.maxWidth="";
+            document.getElementById('sidebar').style.width='100%';
+        }
+        else
+        {
+            document.getElementById('sidebar').style.maxWidth='98%';
+            document.getElementById('sidebar').style.width='98%';
+        }
+    }
+
 }

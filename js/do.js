@@ -2,7 +2,7 @@ var lastURL="";
 var lastData=[];
 var actualDataSource=null;
 var actualInfoFormat=null;
-var actualChart=null;
+var selectedChart=null;
 var geojsonDEP;//, geojson;
 var mymap;
 var sidebar;
@@ -58,21 +58,6 @@ var Do={
         }
     },
     _MapCore:function(DS,data){
-        //CHEATING, I KNOW, THIS IS BECAUSE THE SOURCE DATA AVAILABLE HAD A FLAT STRUCTURE
-        //AND NOT CLEANED. NEED TO ADD A FILTER TO IT (TODO)
-        if (MAPSOURCE.title=="Italy"){ 
-            var lixo=data;
-            var lixo2=[];
-            lixo.forEach(j=>{
-                if (j.data=="2020-03-19T17:00:00")
-                {
-                    lixo2.push(j);
-                }
-            })
-            data=lixo2;
-        }
-        //CHEAT ENDS HERE
-
         var dataToShow=[];
         var j=data;
         lastData=j;
@@ -119,7 +104,6 @@ var Do={
         newDataToShow.push({area:lastArea, value:total});
 
 
-        //var max=Math.max.apply(Math, dataToShow.map(function(o) { return o.value; }))
         var nIntervals=format.intervals.number;
 
         //DEFINE GRADES "percentile" or "normal"
@@ -223,6 +207,7 @@ var Do={
             }
         }
     },
+    //Return color from grades for a value d
     _getColor:function(d) {
         var c=['#FFEDA0','#FED976','#FEB24C','#FD8D3C','#FC4E2A','#E31A1C','#BD0026','#800026'];
         var i=grades.findIndex(el=>el>d);
@@ -305,7 +290,7 @@ var Do={
                         });
                         if (max==0)
                             max=1;
-                        var colors=["#00aa00","#fbff00","#ffa600","#ff0000"];
+                        var colors=["#00aa00","#008300","#b5b535","#fbff00","#ffa600","#ff0000"];
 
                         lastData.forEach(el=>{
                             if (valueOfPath(DS.areaField || "area",el)==area){
@@ -319,21 +304,26 @@ var Do={
                                         {
                                             var toD=e.getBounds().getCenter();
                                             toD=[toD.lng, toD.lat];
-                                            //     "from":[fromC.lng, fromC.lat],
-                                            //     "to":[toC.lng, toC.lat],
-                                            //     "labels":["",""],
-                                            //     "color":colors[n]
                                             break;
                                         }
                                     }
                                     var v=Math.floor(valueOfPath(card.fieldValue,el)/max*(colors.length-1));
-                                    //console.log(valueOfPath(card.fieldValue,el) + " " + max + " " + v);
 
                                     dataFlow.push({ from:toC, to:toD, color:colors[v]});
                                 }
                             }
                         });
-                        //console.log(dataFlow)
+                        //LEGEND
+                        var sT="<div class=legend><div style='margin:1px;padding:2px;color:black;background-color:white'>" + "Arrows Color Legend" + "</div>";
+                        for (var i = 0; i < colors.length; i++) {
+                            var g=Math.floor(i*max/(colors.length));
+                            var g1=Math.floor((i+1)*max/(colors.length));
+                            sT +=
+                                '<i style="background:' + colors[i] + '"></i> ' +
+                                 g + (g1 ? '&ndash;' + g1 + '<br>' : '+');
+                        }
+                        sHTML+=sT + "</div></div><br>"
+
                         Do._mapFlowCore(dataFlow);
                         break;
                     case "minicard":
@@ -377,10 +367,13 @@ var Do={
     //#region GRAPH
     Graph:async function(){
         var graphs=dataSources[actualDataSource].graphs;
-        if (graphs.length==0)
-            return;
-        var gHTML="";
         document.getElementById("divGraph").style.display="none";
+        if (graphs.length==0)
+        {
+            document.getElementById("divSelectGraph").style.display="none";
+            document.getElementById("divGraphSelection").innerHTML="";
+            return;
+        }
         if (graphs){
             if (graphs.length==1)
             {
@@ -391,33 +384,47 @@ var Do={
             else
             {
                 document.getElementById("divSelectGraph").style.display="block";
-                graphs.forEach(graph=>{
-                    var G=GraphsDescription.find(g=>g.id==graph);
-    
-                    var selClass="";
-                    if (G.id==actualChart)
-                        selClass=" sel"
-                    gHTML+=Card(G.title, G.description, "InfoGraph"+selClass, G.darkblue, "Do.GraphDraw('" + G.id + "')");
-  
-                })
-                await this.GraphDraw(graphs[0]);
+                Do._GraphDrawInfo();
+                if (selectedChart!=null)
+                    await this.GraphDraw(selectedChart); 
             }
         }
         else
         {
-            gHTML+=`<div class=InfoGraph)'>
+            var gHTML=`<div class=InfoGraph)'>
                 <div>No Graphs available</div>
             </div>`
+            document.getElementById("divGraphSelection").innerHTML=gHTML;
         }
+    },
+    _GraphSelect:async function(graphId){
+        selectedChart=graphId;
+        Do._GraphDrawInfo();
+        await Do.GraphDraw(selectedChart);
+    },
+    _GraphDrawInfo(){
+        var graphs=dataSources[actualDataSource].graphs;
+        var gHTML="";
+        graphs.forEach(graph=>{
+            var G=GraphsDescription.find(g=>g.id==graph);
+
+            var selClass="";
+            if (G.id==selectedChart)
+                selClass=" sel"
+            gHTML+=Card(G.title, G.description, "InfoGraph"+selClass, G.darkblue, "Do._GraphSelect('" + G.id + "')");
+        })
         document.getElementById("divGraphSelection").innerHTML=gHTML;
     },
     GraphDraw:async function(n){
-        if (!selectedArea)
+        if (!selectedArea){
+            document.getElementById("divGraph").innerHTML="Select area in the map";
+            document.getElementById("divGraph").style.display="block";
             return;
+        }
         var areaTitle=dataDEP.find(el=>el.code==selectedArea).nom;
         document.getElementById("chartInfoTitle").innerHTML=areaTitle + " (" + selectedArea + ")<br>";
 
-        actualChart=n;
+        selectedChart=n;
         var G=GraphsDescription.find(g=>g.id==n);
 
         var url= detokenURL( G.data.url );
@@ -430,116 +437,57 @@ var Do={
             document.getElementById("divGraph").innerHTML="Graph URL not found:<br>" + url;
             return;
         }
-        //loadJSON(url,function(data){
-            var d=JSON.parse(data);
-            var graphDataX=[];
-            var graphDataY=[];
-            var graphDataY1=[];
-            var graphDataY2=[];
-            var graphDataY3=[];
-            for (let i = 0; i < d.length; i++) {
-                const element = d[i];
-                //console.log(element)
-                
-                var vX=valueOfPath(x,element);
-                var vY=valueOfPath(y[0],element);
-                graphDataX.push(vX);
-                graphDataY.push(vY);
+        var d=JSON.parse(data);
+        var graphDataX=[];
+        var graphDataY=[];
+        for(let j=0;j<y.length;j++){
+            graphDataY.push([]);
+        }
+        for (let i = 0; i < d.length; i++) {
+            const element = d[i];
+            
+            var vX=valueOfPath(x,element);
+            graphDataX.push(vX);
 
-                if (y.length>1){
-                    graphDataY1.push(valueOfPath(y[1],element));    
-                }
-                if (y.length>2){
-                    graphDataY2.push(valueOfPath(y[2],element));    
-                }
-                if (y.length>3){
-                    graphDataY3.push(valueOfPath(y[3],element));    
-                }
+            for(let j=0;j<y.length;j++)
+            {
+                graphDataY[j].push(valueOfPath(y[j],element))
             }
+        }
 
-            //TODO: USE THE GRAPH DEFINITION
-            //THIS WAS LOUSY CODE WITH COPY AND PASTE
-            //NEEDS TO BE DONE PROPERLY WITH AN ARRAY
-            var trace1 = {
+        var trace=[];
+        for(let j=0;j<y.length;j++){
+            trace.push({
                 x: graphDataX,
-                y: graphDataY,
+                y: graphDataY[j],
                 type: G.type,
-                name: G.data.titleSeries[0]
+                name: G.data.titleSeries[j]
+            })
+
+        }
+
+        var layout = {
+            title: G.title,
+            xaxis: {
+                title: G.data.titleX
+            },
+            yaxis: {
+                title: ''
+            },
+            showlegend: true,
+            legend: {"orientation": "h"},
+            margin: {
+                l: 50,
+                r: 5,
+                b: 5,
+                t: 50,
+                pad: 4
+                }
             };
-
-            if (y.length>1){
-                var trace2 = {
-                    x: graphDataX,
-                    y: graphDataY1,
-                    type: G.type,
-                    name: G.data.titleSeries[1]
-                };
-            }
-            if (y.length>2){
-                var trace3 = {
-                    x: graphDataX,
-                    y: graphDataY2,
-                    type: G.type,
-                    name: G.data.titleSeries[2]
-                };
-            }
-            if (y.length>3){
-                var trace4 = {
-                    x: graphDataX,
-                    y: graphDataY3,
-                    type: G.type,
-                    name: G.data.titleSeries[3]
-                };
-            }
-            var layout = {
-                title: G.title,
-                xaxis: {
-                    title: G.data.titleX
-                },
-                yaxis: {
-                    title: ''
-                },
-                showlegend: true,
-                legend: {"orientation": "h"},
-                margin: {
-                    l: 50,
-                    r: 5,
-                    b: 5,
-                    t: 50,
-                    pad: 4
-                  },
-                // shapes:[{
-                //   type:'line',
-                //   x0:2.2,
-                //   y0:0,
-                //   x1:2.2,
-                //   y1:20,
-                //   fillcolor: '#d3d3d3',
-                //           opacity: 0.2,
-                //           line: {
-                //               width: 2
-                //           }}
-                // ]
-            };
-            var data = [trace1];
-            if (y.length>1){
-                data.push(trace2);
-            }
-            if (y.length>2){
-                data.push(trace3);
-            }
-            if (y.length>3){
-                data.push(trace4);
-            }
-            document.getElementById("divGraph").style.width="100%";
-          document.getElementById("divGraph").style.display="block";
-          
-          Plotly.newPlot('divGraph', data,layout);
-
-
-        //})
-
-         
+        document.getElementById("divGraph").style.width="100%";
+        document.getElementById("divGraph").style.display="block";
+    
+        Plotly.newPlot('divGraph', trace, layout);
     },
     //#endregion
 
@@ -586,6 +534,9 @@ var Do={
     SimStart(n){
         var sim=Simulations[n];
 
+        //Sim.fields: title, id, type
+        //type: text, number, list({"key":"value","key":"value"...}), mandatory
+
         var sHTML="";
         sim.fields.forEach(f => {
             sHTML+="<div>" + f.title + "</div>";
@@ -595,9 +546,11 @@ var Do={
         document.getElementById("divSimFields").innerHTML=sHTML;
     },
     SimRun(n){
-        var sHTML="";
-
         var sim=Simulations[n];
+        //CALL URL, DO URL replacement
+
+        //SHOW RESULTS
+        var sHTML="";
         sim.results.forEach(r=>{
             var color="darkred";
             switch (r.type) {

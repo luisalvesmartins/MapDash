@@ -37,7 +37,7 @@ async function initMapDash(configFile){
     }).addTo(mymap);
     sidebar.on('opening', function(e) {
         if (e.id!="graphs")
-            actualChart=null;
+            selectedChart=null;
         // e.id contains the id of the opened panel
     })
     sidebar.on('content', function(e) {

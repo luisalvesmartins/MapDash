@@ -58,7 +58,7 @@ BODY {
     height:43px;
 }
 .sourcepick:hover{
-    box-shadow: 2px 2px 5px 0px red;
+    box-shadow: 2px 2px 5px 0px darkblue;
 }
 .sel {
     box-shadow: 2px 2px 5px 0px rgba(130,130,130,1);
@@ -91,42 +91,41 @@ BODY {
 }
 
 /* GRAPHS */
-#divGraphSelectionContainer{
-    width:100%;
-    overflow-x: auto;
-    height:90px;
-}
 #divGraphSelection{
-    display:grid;
-    grid-template-columns: 1fr;
-    grid-auto-flow: column;
+    display: block;
+    width: 100%;
+    height: 90px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 .InfoGraph{
+    display: inline-block;
+    width:118px;
+    height:70px;
     margin:2px;
     padding:2px;
-    height:65px;
-    width:150px;
-    background-color: darkblue;
     cursor: pointer;
-}
+    background-color: darkblue;
+}    
 .InfoGraph div:first-child{
-    margin:2px;
     padding:2px;
     color:white;
     font-weight: bold;
-    font-size:10px;
+    font-size:12px;
 }
 .InfoGraph div:last-child{
-    margin:2px;
     padding:2px;
     color:black;
     font-weight: bold;
     font-size:8px;
     background-color: white;
-    height:36px;
+    height:43px;
+    white-space: wrap;
+    word-wrap: break-word;
+    overflow-wrap: normal;
 }
 .InfoGraph:hover{
-    box-shadow: 2px 2px 5px 0px red;
+    box-shadow: 2px 2px 5px 0px darkblue;
 }
 
 
@@ -198,4 +197,14 @@ BODY {
 
 #divSimFields{
     clear: both;    
+}
+
+.leaflet-sidebar-resize {
+    position: absolute;
+    top: 1px;
+    width: 40px;
+    height: 40px;
+    right:30px;
+    text-align: center;
+    cursor: pointer;
 }
