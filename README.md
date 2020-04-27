@@ -39,6 +39,7 @@ The MapSource is defined by:
 - field name that references the spatial data
 - languages{} - list of languages available for translation
 - translationPath - path to the translation files
+- defaultDataSource - the DataSource that is selected when the map is displayed for the first time
 
 Sample, using France public geojson data copied locally with all the Departments where each department is identified by the field "code" :
 ```javascript
@@ -52,7 +53,8 @@ map:{
             "English":"en",
             "Français":"fr"
         },
-    translationPath:"assets/translation"
+    translationPath:"assets/translation",
+    defaultDataSource:2
 }
 ```
 

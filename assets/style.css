@@ -106,6 +106,7 @@ BODY {
     padding:2px;
     cursor: pointer;
     background-color: darkblue;
+    vertical-align: top;
 }    
 .InfoGraph div:first-child{
     padding:2px;

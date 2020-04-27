@@ -9,7 +9,8 @@
             "English":"en",
             "Français":"fr"
         },
-        "translationPath":"assets/translation"
+        "translationPath":"assets/translation",
+        "defaultDataSource":1
     },
     "POIlayers":[
         {

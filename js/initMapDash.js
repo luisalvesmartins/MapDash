@@ -91,7 +91,7 @@ async function initMapDash(configFile){
     // mymap.on("zoomend",processEvent);
     // mymap.on("moveend",processEvent);
 
-    Do.selMap(0);
+    Do.selMap(MAPSOURCE.defaultDataSource || 0);
     sidebar.open('intro')
 
     L.AddLabel = L.Icon.extend({
