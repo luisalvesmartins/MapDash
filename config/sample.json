@@ -89,6 +89,16 @@
                 {
                     "title":"Total Critical",
                     "field":"total.critical"
+                },
+                {
+                    "type":"chart",
+                    "id":"evolution",
+                    "height":"300px"
+                },
+                {
+                    "type":"chart",
+                    "id":"comparison",
+                    "height":"300px"
                 }
     
             ]
@@ -102,7 +112,7 @@
             "type":"line",
             "needSelectedArea":true,
             "data":{
-                "url":"sampledata/DEPEvolution#AREA#.json",
+                "url":"sampledata/DEPEvolution{AREA}.json",
                 "x":"date",
                 "y":["data.current.critical","total.critical"],
                 "titleX":"",
@@ -116,7 +126,7 @@
             "type":"bar",
             "needSelectedArea":true,
             "data":{
-                "url":"sampledata/DEPComp#AREA#.json",
+                "url":"sampledata/DEPComp{AREA}.json",
                 "x":"date",
                 "y":["men","women"],
                 "titleX":"",
@@ -131,7 +141,12 @@
             "color":"darkblue",
             "fields":[
                 {
-                    "id":"Date",
+                    "id":"date1",
+                    "title":"Date",
+                    "type":"date"
+                },
+                {
+                    "id":"date2",
                     "title":"Date",
                     "type":"date"
                 },
@@ -143,10 +158,14 @@
                 {
                     "id":"listone",
                     "title":"This is a list",
-                    "type":"list(1,2,3)"
+                    "type":"list",
+                    "data":{
+                        "a":"A",
+                        "b":"B"
+                    }
                 }
             ],
-            "url":"",
+            "url":"a.html?date={date1}&date2={date2}",
             "results":[
                 { 
                     "type":"chart",

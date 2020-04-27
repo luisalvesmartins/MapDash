@@ -10,6 +10,7 @@ var sidebar;
 var grades=[];
 var Layer_Legend=null;
 var selectedArea=null;
+var lastSelectedArea=null;
 
 var mapLayers=[
     {id:"polygons",title:"Polygons",display:true},
@@ -220,7 +221,7 @@ var Do={
     //#region Info
     Info:function(e){
         if (e){
-            var sHTML="";
+            document.getElementById("divInfo").innerHTML="";
             var DS=dataSources[actualDataSource];
 
             var area=e.target.feature.properties.id;
@@ -236,10 +237,21 @@ var Do={
 
             var InfoFormat=InfoFormats[actualInfoFormat].format;
 
+            var iChartNum=0;
             InfoFormat.forEach(card => {
+                var sHTML="";
                 switch (card.type) {
                     case "section":
                         sHTML+=`<div class="InfoCardTitle"><div>${card.title}</div></div>`;
+                        document.getElementById("divInfo").innerHTML+=sHTML;
+                        break;
+                    case "chart":
+                        var chartId=card.id;
+                        var height=card.height;
+                        sHTML+=`<div style='clear:both'></div><div id="ch_${iChartNum}" style="height:${height}"></div>`;
+                        document.getElementById("divInfo").innerHTML+=sHTML;
+                        this.GraphDraw(chartId,"ch_" + iChartNum);
+                        iChartNum++;
                         break;
                     case "table":
                         var sC="";
@@ -260,9 +272,10 @@ var Do={
                             }
                         });
                         sHTML+=sT + "</div>"
+                        document.getElementById("divInfo").innerHTML+=sHTML;
                         break;
                     case "mapflow":
-                        if (selectedArea==area)
+                        if (selectedArea==lastSelectedArea)
                             if (flowPane!=null){
                                 flowPane.pause();
                                 break;
@@ -323,6 +336,7 @@ var Do={
                                  g + (g1 ? '&ndash;' + g1 + '<br>' : '+');
                         }
                         sHTML+=sT + "</div></div><br>"
+                        document.getElementById("divInfo").innerHTML+=sHTML;
 
                         Do._mapFlowCore(dataFlow);
                         break;
@@ -337,11 +351,10 @@ var Do={
                                 sHTML+=`<div class=InfoCard style='background-color:${bc}'>${card.title}<div>${v}</div></div>`;
                             }
                         });
+                        document.getElementById("divInfo").innerHTML+=sHTML;
                         break;
                 }
             });
-
-            document.getElementById("divInfo").innerHTML=sHTML;
 
         }
         //sidebar.open('info');
@@ -379,14 +392,14 @@ var Do={
             {
                 //ONLY ONE GRAPH GO DO IT
                 document.getElementById("divSelectGraph").style.display="none";
-                await this.GraphDraw(graphs[0]);
+                await this.GraphDraw(graphs[0],"divGraph");
             }
             else
             {
                 document.getElementById("divSelectGraph").style.display="block";
                 Do._GraphDrawInfo();
                 if (selectedChart!=null)
-                    await this.GraphDraw(selectedChart); 
+                    await this.GraphDraw(selectedChart,"divGraph"); 
             }
         }
         else
@@ -400,7 +413,7 @@ var Do={
     _GraphSelect:async function(graphId){
         selectedChart=graphId;
         Do._GraphDrawInfo();
-        await Do.GraphDraw(selectedChart);
+        await Do.GraphDraw(selectedChart,"divGraph");
     },
     _GraphDrawInfo(){
         var graphs=dataSources[actualDataSource].graphs;
@@ -415,10 +428,10 @@ var Do={
         })
         document.getElementById("divGraphSelection").innerHTML=gHTML;
     },
-    GraphDraw:async function(n){
+    GraphDraw:async function(n,divElement){
         if (!selectedArea){
-            document.getElementById("divGraph").innerHTML="Select area in the map";
-            document.getElementById("divGraph").style.display="block";
+            document.getElementById(divElement).innerHTML="Select area in the map";
+            document.getElementById(divElement).style.display="block";
             return;
         }
         var areaTitle=dataDEP.find(el=>el.code==selectedArea).nom;
@@ -432,9 +445,9 @@ var Do={
         var y=G.data.y; //ARRAY
         try {
             var data=await loadJSONAsync("GET",url);
-            document.getElementById("divGraph").innerHTML="";
+            document.getElementById(divElement).innerHTML="";
         } catch (error) {
-            document.getElementById("divGraph").innerHTML="Graph URL not found:<br>" + url;
+            document.getElementById(divElement).innerHTML="Graph URL not found:<br>" + url;
             return;
         }
         var d=JSON.parse(data);
@@ -484,10 +497,10 @@ var Do={
                 pad: 4
                 }
             };
-        document.getElementById("divGraph").style.width="100%";
-        document.getElementById("divGraph").style.display="block";
+        document.getElementById(divElement).style.width="100%";
+        document.getElementById(divElement).style.display="block";
     
-        Plotly.newPlot('divGraph', trace, layout);
+        Plotly.newPlot(divElement, trace, layout, {responsive:true});
     },
     //#endregion
 
@@ -536,18 +549,27 @@ var Do={
 
         //Sim.fields: title, id, type
         //type: text, number, list({"key":"value","key":"value"...}), mandatory
+        sHTML=Forms.create(sim);
 
-        var sHTML="";
-        sim.fields.forEach(f => {
-            sHTML+="<div>" + f.title + "</div>";
-            sHTML+="<div><input id='" + f.id + "'></div>";
-        });
-        sHTML+="<div><button onclick='Do.SimRun(" + n + ")'>Run</button></div>";
+        sHTML+="<div style='margin:5px'><button onclick='Do.SimRun(" + n + ")'>Run</button></div>";
+
         document.getElementById("divSimFields").innerHTML=sHTML;
+        Forms.afterRender(sim);
     },
     SimRun(n){
         var sim=Simulations[n];
-        //CALL URL, DO URL replacement
+
+        var fieldList=Forms.getFields(sim);
+
+        console.log(fieldList)
+        var url=sim.url;
+        fieldList.forEach(f=>{
+            url=url.replace("{" + f.field + "}",f.value);
+        });
+        //DO URL replacement
+        console.log(sim.url)
+        console.log(url)
+        //CALL URL
 
         //SHOW RESULTS
         var sHTML="";
@@ -681,10 +703,10 @@ function detokenURL(url){
     var MM=actualDate.substr(5,2);
     var DD=actualDate.substr(8,2);
 
-    var url1=url.replace("#YYYY#",YYYY);
-    url1=url1.replace("#MM#",MM);
-    url1=url1.replace("#DD#",DD);
-    url1=url1.replace("#AREA#",selectedArea);
+    var url1=url.replace("{YYYY}",YYYY);
+    url1=url1.replace("{MM}",MM);
+    url1=url1.replace("{DD}",DD);
+    url1=url1.replace("{AREA}",selectedArea);
     return url1;
 }
 

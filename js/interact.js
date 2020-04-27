@@ -25,10 +25,11 @@ var interact={
                         fillOpacity: 0.9
                     });
                     //sidebar.open('info')
-                    Do.Info(e);
                     selectedArea=e.target.feature.properties.id;
+                    Do.Info(e);
+                    lastSelectedArea=selectedArea;
                     if (selectedChart!=null){
-                        await Do.GraphDraw(selectedChart);
+                        await Do.GraphDraw(selectedChart,"divGraph");
                     }
                 }            
             }
