@@ -93,10 +93,10 @@ dataSources:[
 ```
 
 URLs accept the following pragmas:
-- #YYYY# - year
-- #MM# - month
-- #DD# - day
-- #AREA# - selected map area
+- {YYYY} - year
+- {MM} - month
+- {DD} - day
+- {AREA} - selected map area
 
 ### Charts 
 
@@ -137,7 +137,7 @@ charts:[
 
 When a user selects a geographic region the information is displayed according to this definition.
 The information to be presented can be:
-Section titles, Infocards, Tables, Mapflow
+Section titles, Infocards, Tables, Mapflow, Charts
 
 ![infocard](docs/infocard.png)
 
@@ -194,6 +194,21 @@ Represent the movement of assets between georegions over the map. Defined by the
                 fieldValue:"people"
             },
 ```
+
+Charts
+
+The chart is displayed with the specified height:
+```javascript
+     {
+        format:[
+            {
+                id:"evolution",
+                type:"chart",
+                height:"300px"
+            },
+            ...
+```
+
 
 A full example can be:
 
