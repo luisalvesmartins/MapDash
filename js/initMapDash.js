@@ -91,7 +91,7 @@ async function initMapDash(configFile){
     // mymap.on("zoomend",processEvent);
     // mymap.on("moveend",processEvent);
 
-    Do.selMap(0);
+    Do.selMap(MAPSOURCE.defaultDataSource || 0);
     sidebar.open('intro')
 
     L.AddLabel = L.Icon.extend({
@@ -152,6 +152,19 @@ async function initMapDash(configFile){
             }
         });
     })
+
+    //Add date picker to date control
+    var pd=new Pikaday({
+        field: document.getElementById('txtDate'),
+        firstDay: 1,
+        minDate: new Date(2016, 0, 1),
+        maxDate: new Date(2100, 12, 31),
+        yearRange: [2016,2100],
+        showTime: false,
+        autoClose: true,
+        use24hour: false,
+        format: 'YYYY/MM/DD'
+    });
 
     // Resize map with resize of screen
     window.addEventListener('resize', function(event) {

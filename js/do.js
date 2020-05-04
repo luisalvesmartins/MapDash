@@ -424,7 +424,7 @@ var Do={
             var selClass="";
             if (G.id==selectedChart)
                 selClass=" sel"
-            gHTML+=Card(G.title, G.description, "InfoGraph"+selClass, G.darkblue, "Do._GraphSelect('" + G.id + "')");
+            gHTML+=Card(G.title, G.description, "InfoGraph"+selClass, "darkblue", "Do._GraphSelect('" + G.id + "')");
         })
         document.getElementById("divGraphSelection").innerHTML=gHTML;
     },
