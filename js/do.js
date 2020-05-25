@@ -322,7 +322,10 @@ var Do={
                                     }
                                     var v=Math.floor(valueOfPath(card.fieldValue,el)/max*(colors.length-1));
 
-                                    dataFlow.push({ from:toC, to:toD, color:colors[v]});
+                                    if (card.reverseArrow)
+                                        dataFlow.push({ from:toD, to:toC, color:colors[v]});
+                                    else
+                                        dataFlow.push({ from:toC, to:toD, color:colors[v]});
                                 }
                             }
                         });
